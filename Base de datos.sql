@@ -41,3 +41,5 @@ CREATE TABLE prestamos (
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
     FOREIGN KEY (id_libro) REFERENCES libros(id)
 );
+
+INSERT INTO roles (nombre) VALUES ('ADMIN'), ('USUARIO');
