@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-04-2026 a las 20:30:06
+-- Tiempo de generación: 27-04-2026 a las 07:48:27
 -- Versión del servidor: 8.0.41
 -- Versión de PHP: 8.2.12
 
@@ -43,10 +43,12 @@ CREATE TABLE `libros` (
 
 INSERT INTO `libros` (`id`, `titulo`, `autor`, `genero`, `isbn`, `stock`, `activo`) VALUES
 (1, '100 años de soledad', 'Gabriel García Marquéz', 'Drama', '18235236', 9, 1),
-(3, 'El Principito', 'Antoine de Saint-Exupéry', 'Literatura infantil', '127722', 3, 1),
-(5, 'El alquimista', ' Paulo Coelho', ' Novela', '156274', 3, 1),
+(3, 'El Principito', 'Antoine de Saint-Exupéry', 'Literatura infantil', '127722', 2, 1),
+(5, 'El alquimista', ' Paulo Coelho', ' Novela', '156274', 4, 1),
 (9, 'El monje que vendió su ferrari', ' Robin S. Sharma', ' Ficción', '23472894734', 2, 1),
-(10, ' El Arte del Cuchiplancheo', ' Penélope Menchaca', 'Finanzas', '13245', 0, 1);
+(10, ' El Arte del Cuchiplancheo', ' Penélope Menchaca', 'Finanzas', '13245', 2, 1),
+(11, 'Romeo y Julieta', ' William Shakespeare', ' Tragedia', '2864983', 5, 1),
+(12, 'Hábitos Atómicos', 'James Clear', 'Libro de autoayuda', '1736923', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -61,7 +63,7 @@ CREATE TABLE `prestamos` (
   `fecha_prestamo` date DEFAULT NULL,
   `fecha_devolucion` date DEFAULT NULL,
   `fecha_real_devolucion` date DEFAULT NULL,
-  `estado` enum('ACTIVO','DEVUELTO') DEFAULT 'ACTIVO'
+  `estado` enum('PENDIENTE','ACTIVO','DEVUELTO','RECHAZADO') DEFAULT 'PENDIENTE'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -78,9 +80,17 @@ INSERT INTO `prestamos` (`id`, `id_usuario`, `id_libro`, `fecha_prestamo`, `fech
 (7, 1, 1, '2026-04-23', '2026-04-30', '2026-04-23', 'DEVUELTO'),
 (8, 1, 3, '2026-04-23', '2026-04-30', '2026-04-24', 'DEVUELTO'),
 (9, 1, 3, '2026-04-24', '2026-05-01', NULL, 'ACTIVO'),
-(10, 2, 5, '2026-04-24', '2026-05-01', NULL, 'ACTIVO'),
-(12, 2, 10, '2026-04-24', '2026-05-01', NULL, 'ACTIVO'),
-(13, 1, 9, '2026-04-24', '2026-05-01', NULL, 'ACTIVO');
+(10, 2, 5, '2026-04-24', '2026-05-01', '2026-04-26', 'DEVUELTO'),
+(12, 2, 10, '2026-04-24', '2026-05-01', '2026-04-26', 'DEVUELTO'),
+(13, 1, 9, '2026-04-24', '2026-05-01', '2026-04-25', 'DEVUELTO'),
+(14, 1, 9, '2026-04-25', '2026-05-02', NULL, 'ACTIVO'),
+(15, 2, 9, '2026-04-25', '2026-05-02', '2026-04-26', 'DEVUELTO'),
+(16, 2, 5, '2026-04-26', '2026-05-03', '2026-04-26', 'DEVUELTO'),
+(17, 2, 1, '2026-04-26', NULL, NULL, 'RECHAZADO'),
+(18, 2, 1, '2026-04-26', NULL, NULL, 'RECHAZADO'),
+(19, 2, 1, '2026-04-26', '2026-05-03', '2026-04-26', 'DEVUELTO'),
+(20, 2, 3, '2026-04-26', '2026-05-03', NULL, 'ACTIVO'),
+(21, 2, 10, '2026-04-26', '2026-05-03', NULL, 'ACTIVO');
 
 -- --------------------------------------------------------
 
@@ -99,7 +109,8 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `nombre`) VALUES
 (1, 'ADMIN'),
-(2, 'USUARIO');
+(2, 'USUARIO'),
+(3, 'SUPERADMIN');
 
 -- --------------------------------------------------------
 
@@ -122,8 +133,10 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `password`, `id_rol`, `intentos_fallidos`, `bloqueado`) VALUES
-(1, 'Admin', 'admin@correo.com', '$2y$10$Mavgsh/MWX6YbY6ej/UL1u84ZjKRibqwJiICXfCID0gJUuhdweJNO', 1, 0, 0),
-(2, 'Usuario', 'quiensea@correo.com', '$2y$10$JCm167dwTm9ax1WEE1XbfOTTJcs6/HGMCmtH3oo.JiXahBwk8aP9K', 2, 0, 0);
+(1, 'Admin', 'admin@correo.com', '$2y$10$Mavgsh/MWX6YbY6ej/UL1u84ZjKRibqwJiICXfCID0gJUuhdweJNO', 3, 0, 0),
+(2, 'Usuario', 'quiensea@correo.com', '$2y$10$JCm167dwTm9ax1WEE1XbfOTTJcs6/HGMCmtH3oo.JiXahBwk8aP9K', 2, 0, 0),
+(6, 'Admin2', 'admin2@correo.com', '$2y$10$ythUVXXzXt9QCiVUevnsJuOdmVEgieu51vS/nT2pBT/knTFyfFXVm', 1, 0, 0),
+(7, 'admin3', 'admin3@correo.com', '$2y$10$R17qf4ygs34xHlU3//8a6ur0wJaNQhkgx/6qcBEgDVeQfu9aKaD5G', 1, 0, 0);
 
 --
 -- Índices para tablas volcadas
@@ -171,19 +184,19 @@ ALTER TABLE `libros`
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas
