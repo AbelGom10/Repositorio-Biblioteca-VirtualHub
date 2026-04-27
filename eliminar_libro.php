@@ -29,7 +29,7 @@ if ($stock > 1) {
 
     $conexion->query("UPDATE libros SET stock = stock - 1 WHERE id=$id");
 
-    header("Location: /Biblioteca/ConsultarLibros.php?mensaje=stock_reducido");
+    header("Location: /Repositorio-Biblioteca-VirtualHub/ConsultarLibros.php?mensaje=stock_reducido");
     exit();
 }
 
@@ -53,7 +53,7 @@ if ($stock == 1) {
     // 🔥 eliminar libro
     $conexion->query("DELETE FROM libros WHERE id=$id");
 
-    header("Location: /Biblioteca/ConsultarLibros.php?mensaje=eliminado");
+    header("Location: /Repositorio-Biblioteca-VirtualHub/ConsultarLibros.php?mensaje=eliminado");
     exit();
 }
 

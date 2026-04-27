@@ -42,7 +42,7 @@ $libro = $result->fetch_assoc();
 
                 <div class="card-body">
 
-                    <form action="/Biblioteca/actualizar_libro.php" method="POST">
+                    <form action="/Repositorio-Biblioteca-VirtualHub/actualizar_libro.php" method="POST">
 
                         <input type="hidden" name="id" value="<?php echo $libro['id']; ?>">
 
@@ -68,7 +68,7 @@ $libro = $result->fetch_assoc();
                             Actualizar
                         </button>
 
-                        <a href="/Biblioteca/ConsultarLibros.php" class="btn btn-secondary w-100 mt-2">
+                        <a href="/BiblRepositorio-Biblioteca-VirtualHubioteca/ConsultarLibros.php" class="btn btn-secondary w-100 mt-2">
                             Cancelar
                         </a>
 
