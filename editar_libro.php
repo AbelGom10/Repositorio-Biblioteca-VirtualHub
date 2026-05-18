@@ -68,7 +68,7 @@ $libro = $result->fetch_assoc();
                             Actualizar
                         </button>
 
-                        <a href="/BiblRepositorio-Biblioteca-VirtualHubioteca/ConsultarLibros.php" class="btn btn-secondary w-100 mt-2">
+                        <a href="/Repositorio-Biblioteca-VirtualHub/ConsultarLibros.php" class="btn btn-secondary w-100 mt-2">
                             Cancelar
                         </a>
 
